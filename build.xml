@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ConFoo" default="build">
+    <target name="build" depends="lint,phpunit">
+    </target>
+
+    <target name="autoload" description="Generate autoloader scripts">
+        <exec executable="${basedir}/build-tools/phpab.phar">
+            <arg value="--output"/>
+            <arg path="src/autoload.php"/>
+            <arg path="src"/>
+        </exec>
+
+        <exec executable="${basedir}/build-tools/phpab.phar">
+            <arg value="--output"/>
+            <arg path="tests/autoload.php"/>
+            <arg path="tests"/>
+        </exec>
+    </target>
+
+    <target name="lint">
+        <apply executable="php" failonerror="true">
+            <arg value="-l"/>
+
+            <fileset dir="${basedir}/src">
+                <include name="**/*.php"/>
+                <modified/>
+            </fileset>
+
+            <fileset dir="${basedir}/tests">
+                <include name="**/*.php"/>
+                <modified/>
+            </fileset>
+        </apply>
+    </target>
+
+    <target name="test" description="Run unit tests">
+
+        <condition property="phpunit.args" value="${phpunit}" else="">
+            <isset property="phpunit"/>
+        </condition>
+
+        <exec executable="${basedir}/build-tools/phpunit.phar" failonerror="true">
+            <arg value="--configuration"/>
+            <arg path="${basedir}"/>
+            <arg line="${phpunit.args}"/>
+        </exec>
+    </target>
+
+    <target name="sniff" description="Inspect for coding standard violations">
+        <exec executable="${basedir}/vendor/bin/phpcs" failonerror="true">
+            <arg line="--standard=PSR2 --colors"/>
+        </exec>
+    </target>
+
+    <target name="mess" description="Run mess detector">
+        <exec executable="${basedir}/vendor/bin/phpmd" failonerror="true">
+            <arg line="src text codesize,cleancode,controversial,design,naming,unusedcode"/>
+        </exec>
+    </target>
+
+</project>
