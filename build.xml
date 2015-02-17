@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="ConFoo" default="build">
-    <target name="build" depends="lint,phpunit">
+    <target name="build" depends="lint,test">
     </target>
 
     <target name="autoload" description="Generate autoloader scripts">
@@ -39,7 +39,7 @@
             <isset property="phpunit"/>
         </condition>
 
-        <exec executable="${basedir}/build-tools/phpunit.phar" failonerror="true">
+        <exec executable="${basedir}/vendor/bin/phpunit" failonerror="true">
             <arg value="--configuration"/>
             <arg path="${basedir}"/>
             <arg line="${phpunit.args}"/>
@@ -48,7 +48,7 @@
 
     <target name="sniff" description="Inspect for coding standard violations">
         <exec executable="${basedir}/vendor/bin/phpcs" failonerror="true">
-            <arg line="--standard=PSR2 --colors"/>
+            <arg line="--standard=PSR2 --colors src"/>
         </exec>
     </target>
 

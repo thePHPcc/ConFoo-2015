@@ -4,9 +4,8 @@
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
          checkForUnintentionallyCoveredCode="false"
-         strict="true"
          verbose="true">
-    <testsuite name="http">
+    <testsuite name="ConFoo">
         <directory suffix="Test.php">tests</directory>
     </testsuite>
 
