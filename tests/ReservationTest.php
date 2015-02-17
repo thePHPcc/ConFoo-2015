@@ -2,6 +2,7 @@
 
 /**
  * @covers Reservation
+ * @uses Duration
  */
 class ReservationTest extends PHPUnit_Framework_TestCase
 {

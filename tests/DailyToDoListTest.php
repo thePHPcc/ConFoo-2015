@@ -2,30 +2,36 @@
 
 /**
  * @covers DailyToDoList
+ * @uses NumberOfVehicles
  */
 class DailyToDoListTest extends PHPUnit_Framework_TestCase
 {
-    public function testTotalNumberOfCarsToRentCanBeRetrieved()
-    {
-        $totalNumberOfCarsToRent = $this->createNumberOfCars();
-        $toDoList = new DailyToDoList(new DateTimeImmutable, $totalNumberOfCarsToRent);
-
-        $this->assertEquals($totalNumberOfCarsToRent, $toDoList->getTotalNumbersOfCarsToRent());
-    }
-
-    public function testDateCanBeRetrieved()
+    public function testCanBeRendered()
     {
         $date = new DateTimeImmutable;
-        $toDoList = new DailyToDoList($date, $this->createNumberOfCars());
+        $totalNumberOfCarsToRent = $this->createNumberOfVehicles();
+        $totalNumberOfCarsInLot = $this->createNumberOfVehicles();
 
-        $this->assertEquals($date, $toDoList->getDate());
+        $toDoList = new DailyToDoList(
+            $date,
+            $totalNumberOfCarsToRent,
+            $totalNumberOfCarsInLot
+        );
+
+        $renderer = $this->getMockBuilder(ToDoListHtmlRenderer::class)->disableOriginalConstructor()->getMock();
+
+        $renderer->expects($this->once())
+                 ->method('render')
+                 ->with($date, $totalNumberOfCarsInLot, $totalNumberOfCarsToRent);
+
+        $toDoList->renderWith($renderer);
     }
 
     /**
-     * @return NumberOfCars
+     * @return NumberOfVehicles
      */
-    private function createNumberOfCars()
+    private function createNumberOfVehicles()
     {
-        return new NumberOfCars(rand(1, 1000));
+        return new NumberOfVehicles(rand(1, 1000));
     }
 }

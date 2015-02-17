@@ -3,7 +3,7 @@
          backupGlobals="false"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
-         checkForUnintentionallyCoveredCode="false"
+         checkForUnintentionallyCoveredCode="true"
          verbose="true">
     <testsuite name="ConFoo">
         <directory suffix="Test.php">tests</directory>

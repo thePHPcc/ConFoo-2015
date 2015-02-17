@@ -1,6 +1,6 @@
 <?php
 
-class NumberOfCars
+class NumberOfVehicles
 {
     private $numberOfCars = 0;
 
@@ -10,6 +10,11 @@ class NumberOfCars
         $this->ensureIsPositive($numberOfCars);
 
         $this->numberOfCars = $numberOfCars;
+    }
+
+    public function asInt()
+    {
+        return (int) $this->numberOfCars;
     }
 
     private function ensureIsInteger($numberOfCars)

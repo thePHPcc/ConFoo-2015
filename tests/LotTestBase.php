@@ -1,16 +1,11 @@
 <?php
 
-class LotTest extends PHPUnit_Framework_TestCase
+class LotTestBase extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Lot
      */
-    private $lot;
-
-    protected function setUp()
-    {
-        $this->lot = new Lot(1);
-    }
+    protected $lot;
 
     public function testInitiallyHasNoVehicles()
     {
@@ -32,6 +27,17 @@ class LotTest extends PHPUnit_Framework_TestCase
     {
         $this->lot->addVehicle(new DateTimeImmutable);
         $this->assertEquals(1, $this->lot->getNumberOfVehicles(new DateTimeImmutable));
+
+        return $this->lot;
+    }
+
+    /**
+     * @depends testVehicleCanBeAdded
+     */
+    public function testVehicleCanBeRemoved(Lot $lot)
+    {
+        $lot->removeVehicle(new DateTimeImmutable);
+        $this->assertEquals(0, $lot->getNumberOfVehicles(new DateTimeImmutable));
     }
 
     public function testAddingVehiclesDoesNotChangeHistory()
@@ -40,11 +46,10 @@ class LotTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->lot->getNumberOfVehicles(new DateTimeImmutable('yesterday')));
     }
 
-    public function testVehicleCanBeRemoved()
+    public function testVehiclesAreReportedAsAvailableForTheNextDay()
     {
         $this->lot->addVehicle(new DateTimeImmutable);
-        $this->lot->removeVehicle(new DateTimeImmutable);
-        $this->assertEquals(0, $this->lot->getNumberOfVehicles(new DateTimeImmutable));
+        $this->assertEquals(1, $this->lot->getNumberOfVehicles(new DateTimeImmutable('tomorrow')));
     }
 
     /**
@@ -63,6 +68,4 @@ class LotTest extends PHPUnit_Framework_TestCase
         $this->lot->addVehicle(new DateTimeImmutable);
         $this->lot->addVehicle(new DateTimeImmutable);
     }
-
-    // hasCapacity?
 }

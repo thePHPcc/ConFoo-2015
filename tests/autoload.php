@@ -10,9 +10,11 @@ spl_autoload_register(
                 'branchtest' => '/BranchTest.php',
                 'dailytodolisttest' => '/DailyToDoListTest.php',
                 'durationtest' => '/DurationTest.php',
-                'lottest' => '/LotTest.php',
+                'goodlottest' => '/GoodLotTest.php',
+                'lottestbase' => '/LotTestBase.php',
                 'numberofcarstest' => '/NumberOfCarsTest.php',
-                'reservationtest' => '/ReservationTest.php'
+                'reservationtest' => '/ReservationTest.php',
+                'todolisthtmlrenderertest' => '/ToDoListHtmlRendererTest.php'
             );
         }
         $cn = strtolower($class);

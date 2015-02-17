@@ -7,12 +7,15 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
+                'arneslot' => '/ArnesLot.php',
                 'branch' => '/Branch.php',
                 'dailytodolist' => '/DailyToDoList.php',
                 'duration' => '/Duration.php',
+                'goodlot' => '/GoodLot.php',
                 'lot' => '/Lot.php',
-                'numberofcars' => '/NumberOfCars.php',
-                'reservation' => '/Reservation.php'
+                'numberofvehicles' => '/NumberOfVehicles.php',
+                'reservation' => '/Reservation.php',
+                'todolisthtmlrenderer' => '/ToDoListHtmlRenderer.php'
             );
         }
         $cn = strtolower($class);

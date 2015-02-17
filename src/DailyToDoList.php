@@ -3,21 +3,26 @@
 class DailyToDoList
 {
     private $date;
-    private $numberOfCarsToRent;
+    private $numberOfVehiclesToRent;
+    private $numberOfVehiclesInLot;
 
-    public function __construct(DateTimeImmutable $date, NumberOfCars $numberOfCarsToRent)
+    public function __construct(
+        DateTimeImmutable $date,
+        NumberOfVehicles $numberOfVehiclesToRent,
+        NumberOfVehicles $numberOfVehiclesInLot
+    )
     {
         $this->date = $date;
-        $this->numberOfCarsToRent = $numberOfCarsToRent;
+        $this->numberOfVehiclesToRent = $numberOfVehiclesToRent;
+        $this->numberOfVehiclesInLot = $numberOfVehiclesInLot;
     }
 
-    public function getTotalNumbersOfCarsToRent()
+    public function renderWith(ToDoListHtmlRenderer $doListHtmlRenderer)
     {
-        return $this->numberOfCarsToRent;
-    }
-
-    public function getDate()
-    {
-        return $this->date;
+        return $doListHtmlRenderer->render(
+            $this->date,
+            $this->numberOfVehiclesInLot,
+            $this->numberOfVehiclesToRent
+        );
     }
 }
